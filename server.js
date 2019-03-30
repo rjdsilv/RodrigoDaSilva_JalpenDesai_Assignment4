@@ -1,22 +1,33 @@
-var SenecaWeb = require('seneca-web')
-var Express = require('express')
-var Router = Express.Router
-var context = new Router()
+// Set the 'NODE_ENV' variable
+process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
-var senecaWebConfig = {
+// Gets the necessary packages.
+const mongoose = require('./config/mongoose');
+const senecaWeb = require('seneca-web')
+const express = require('express')
+const router = express.Router
+const context = new router();
+
+// Configures seneca web integration with express.
+const senecaWebConfig = {
     context: context,
     adapter: require('seneca-web-adapter-express'),
-    options: { parseBody: false } // so we can use body-parser
-}
+    options: { parseBody: false }
+};
 
-var app = Express()
+// Opens a mongoose connection with the DB
+mongoose();
+
+// Configures express integration with seneca.
+express()
     .use(require('body-parser').json())
     .use(context)
-    .listen(3000)
+    .listen(3000);
 
-var seneca = require('seneca')()
-    .use(SenecaWeb, senecaWebConfig)
-    .use('app/plugins/course')
+// Configures seneca to listen using tcp for course messages and exposes its APIs.
+require('seneca')()
+    .use(senecaWeb, senecaWebConfig)
+    .use('app/plugins/course.plugin')
     .listen({ type: 'tcp', pin: 'role:course' })
-    .use('app/apis/course')
-    .client({ type: 'tcp', pin: 'role:course' })
+    .use('app/apis/course.api')
+    .client({ type: 'tcp', pin: 'role:course' });

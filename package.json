@@ -9,6 +9,7 @@
   "dependencies": {
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
+    "mongoose": "^5.4.20",
     "seneca": "^3.8.4",
     "seneca-web": "^2.2.1",
     "seneca-web-adapter-express": "^1.1.2"

@@ -30,10 +30,16 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="app\apis\course.js">
+    <Compile Include="app\apis\course.api.js">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="app\plugins\course.js">
+    <Compile Include="app\models\course.model.js" />
+    <Compile Include="app\plugins\course.plugin.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="config\config.js" />
+    <Compile Include="config\env\development.js" />
+    <Compile Include="config\mongoose.js">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="server.js" />
@@ -45,6 +51,8 @@
     <Folder Include="app\models\" />
     <Folder Include="app\apis\" />
     <Folder Include="app\plugins\" />
+    <Folder Include="config\" />
+    <Folder Include="config\env\" />
   </ItemGroup>
   <!-- Do not delete the following Import Project.  While this appears to do nothing it is a marker for setting TypeScript properties before our import that depends on them. -->
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="False" />
